@@ -1,0 +1,247 @@
+we have list of 7 replicate process.
+
+RCLBQX2
+___________
+
+# Properties file for Replicat RCLBQX2
+# Google BigQuery Stage and Merge Template
+# Configuration to load GoldenGate trail operation records 
+# into Google Big Query by chaining
+# File writer handler -> GCS Event handler -> BQ Event handler.
+# Note: Recommended to only edit the configuration marked as TODO
+# TODO:Set GOOGLE_APPLICATION_CREDENTIALS environment variable
+# OR set the credentialsFile property gg.eventhandler.gcs.credentialsFile
+
+gg.target=bq
+gg.eventhandler.bq.projectId=hmh-datalake-prod-c5b4
+
+## The GCS Event handler
+#TODO: Edit the GCS bucket name
+gg.eventhandler.gcs.bucketMappingTemplate=hmh-us-c5b4-datalake-us-prod
+## Added as per ORACLE RECOMMENDATION for the hang
+##gg.eventhandler.gcs.concurrency=1
+#TODO: Edit the GCS credentialsFile
+#gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-cfacd398eb20.json
+gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-1c5f075d263f.json
+
+## The BQ Event handler
+## No mandatory configuration required.
+
+#TODO: Edit to include the GCS Java SDK and BQ Java SDK.
+gg.classpath=/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/gcs_2.15.0/*:/path/to/bq-deps/clarity:/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/bigquery_2.18.2/*
+#TODO: Edit to provide sufficient memory (at least 8GB).
+jvm.bootoptions=-Xmx100g -Xms50g
+#TODO: If running OGGBD behind a proxy server.
+#jvm.bootoptions=-Xmx8g -Xms8g -Dhttps.proxyHost=<ip-address> -Dhttps.proxyPort=<port>
+#gg.eventhandler.bq.createDataset=true
+#gg.handler.bq.format.metaColumnsTemplate=${tk_optype[OPTYPE]},${tk_commit_ts[COMMITTIMESTAMP]}
+#gg.handler.bq.format.metaColumnsTemplate=${objectname[table]},${optype[TK_OPTYPE]},${COMMITTIMESTAMP[tk_commit_ts]},${position[pos]}
+gg.eventhandler.bq.createTable=true
+gg.eventhandler.bq.mapLargeNumbersAsStrings=false
+##gg.initialLoad=true
+gg.log=log4j
+gg.log.level=INFO
+
+gg.eventhandler.bq.retries=3
+gg.eventhandler.bq.totalTimeout=120000
+
+##gg.handler.bq.fileRollInterval=1m   --Commented on 18_sep_2025
+
+## Default configuration change from 30 seconds
+##gg.aggregate.operations.flush.interval=180000
+##gg.aggregate.operations.flush.bytes=8388608 # 8 MB
+##gg.aggregate.operations.flush.operations=2000
+## lrucache is default with 10000000 SO ADDED extra ZERO
+gg.aggregate.operations.lrucache.limit=100000000
+#######added 24-Sep-2025
+gg.aggregate.operations=true
+gg.handler.bq.fileRollInterval=5m
+gg.aggregate.operations.flush.operations=1500000
+gg.aggregate.operations.flush.interval=300000
+##gg.aggregate.operations.flush.bytes=209715200
+gg.aggregate.operations.flush.bytes=524288000
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+RCLBQX3
+_________
+
+# Properties file for Replicat RCLBQX3
+# Google BigQuery Stage and Merge Template
+# Configuration to load GoldenGate trail operation records 
+# into Google Big Query by chaining
+# File writer handler -> GCS Event handler -> BQ Event handler.
+# Note: Recommended to only edit the configuration marked as TODO
+# TODO:Set GOOGLE_APPLICATION_CREDENTIALS environment variable
+# OR set the credentialsFile property gg.eventhandler.gcs.credentialsFile
+
+gg.target=bq
+gg.eventhandler.bq.projectId=hmh-datalake-prod-c5b4
+
+## The GCS Event handler
+#TODO: Edit the GCS bucket name
+gg.eventhandler.gcs.bucketMappingTemplate=hmh-us-c5b4-datalake-us-prod
+## Added as per ORACLE RECOMMENDATION for the hang
+##gg.eventhandler.gcs.concurrency=1
+#TODO: Edit the GCS credentialsFile
+#gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-cfacd398eb20.json
+gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-1c5f075d263f.json
+
+## The BQ Event handler
+## No mandatory configuration required.
+
+#TODO: Edit to include the GCS Java SDK and BQ Java SDK.
+gg.classpath=/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/gcs_2.15.0/*:/path/to/bq-deps/clarity:/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/bigquery_2.18.2/*
+#TODO: Edit to provide sufficient memory (at least 8GB).
+##jvm.bootoptions=-Xmx175g -Xms86g      
+jvm.bootoptions=-Xmx110g -Xms40g
+#TODO: If running OGGBD behind a proxy server.
+#jvm.bootoptions=-Xmx8g -Xms8g -Dhttps.proxyHost=<ip-address> -Dhttps.proxyPort=<port>
+#gg.eventhandler.bq.createDataset=true
+#gg.handler.bq.format.metaColumnsTemplate=${tk_optype[OPTYPE]},${tk_commit_ts[COMMITTIMESTAMP]}
+#gg.handler.bq.format.metaColumnsTemplate=${objectname[table]},${optype[TK_OPTYPE]},${COMMITTIMESTAMP[tk_commit_ts]},${position[pos]}
+gg.eventhandler.bq.createTable=true
+gg.eventhandler.bq.mapLargeNumbersAsStrings=false
+##gg.initialLoad=true
+gg.log=log4j
+gg.log.level=INFO
+
+gg.eventhandler.bq.retries=3
+gg.eventhandler.bq.totalTimeout=120000
+
+##gg.handler.bq.fileRollInterval=1m   --Commented on 18_sep_2025
+
+## Default configuration change from 30 seconds
+##gg.aggregate.operations.flush.interval=180000
+##gg.aggregate.operations.flush.bytes=8388608 # 8 MB
+##gg.aggregate.operations.flush.operations=2000
+## lrucache is default with 10000000 SO ADDED extra ZERO
+gg.aggregate.operations.lrucache.limit=100000000
+#######added 24-Sep-2025
+gg.aggregate.operations=true
+##gg.handler.bq.fileRollInterval=5m
+###########gg.handler.bq.fileRollInterval=15m
+gg.aggregate.operations.flush.operations=1500000
+##gg.aggregate.operations.flush.interval=300000
+#########gg.aggregate.operations.flush.interval=900000
+##gg.aggregate.operations.flush.bytes=209715200
+gg.aggregate.operations.flush.bytes=524288000
+gg.handler.bq.fileRollInterval=12m
+gg.aggregate.operations.flush.interval=600000
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+RCLP1T
+_______
+
+# Properties file for Replicat RCLP1T
+# Google BigQuery Stage and Merge Template
+# Configuration to load GoldenGate trail operation records 
+# into Google Big Query by chaining
+# File writer handler -> GCS Event handler -> BQ Event handler.
+# Note: Recommended to only edit the configuration marked as TODO
+# TODO:Set GOOGLE_APPLICATION_CREDENTIALS environment variable
+# OR set the credentialsFile property gg.eventhandler.gcs.credentialsFile
+
+gg.target=bq
+gg.eventhandler.bq.projectId=hmh-datalake-prod-c5b4
+
+## The GCS Event handler
+#TODO: Edit the GCS bucket name
+gg.eventhandler.gcs.bucketMappingTemplate=hmh-us-c5b4-datalake-us-prod
+## Added as per ORACLE RECOMMENDATION for the hang
+#gg.eventhandler.gcs.concurrency=1
+#TODO: Edit the GCS credentialsFile
+#gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-cfacd398eb20.json
+gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-1c5f075d263f.json
+
+## The BQ Event handler
+## No mandatory configuration required.
+
+#TODO: Edit to include the GCS Java SDK and BQ Java SDK.
+gg.classpath=/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/gcs_2.15.0/*:/path/to/bq-deps/clarity:/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/bigquery_2.18.2/*
+#TODO: Edit to provide sufficient memory (at least 8GB).
+jvm.bootoptions=-Xmx150g -Xms75g
+#TODO: If running OGGBD behind a proxy server.
+#jvm.bootoptions=-Xmx8g -Xms8g -Dhttps.proxyHost=<ip-address> -Dhttps.proxyPort=<port>
+#gg.eventhandler.bq.createDataset=true
+#gg.handler.bq.format.metaColumnsTemplate=${tk_optype[OPTYPE]},${tk_commit_ts[COMMITTIMESTAMP]}
+#gg.handler.bq.format.metaColumnsTemplate=${objectname[table]},${optype[TK_OPTYPE]},${COMMITTIMESTAMP[tk_commit_ts]},${position[pos]}
+##gg.eventhandler.bq.createTable=true
+gg.eventhandler.bq.mapLargeNumbersAsStrings=false
+##gg.initialLoad=true
+gg.log=log4j
+gg.log.level=INFO
+gg.handler.bq.mode=op
+gg.report.time=30sec
+
+gg.eventhandler.bq.retries=3
+gg.eventhandler.bq.totalTimeout=120000
+
+##gg.handler.bq.fileRollInterval=1m   --->commented on 18_set_2025
+
+## Default configuration change from 30 seconds
+gg.aggregate.operations.flush.interval=300000
+## lrucache is default with 10000000 SO ADDED extra ZERO
+gg.aggregate.operations.lrucache.limit=100000000
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+RCLPBQBT
+_________
+
+# Properties file for Replicat RCLPBQBT
+# Google BigQuery Stage and Merge Template
+# Configuration to load GoldenGate trail operation records 
+# into Google Big Query by chaining
+# File writer handler -> GCS Event handler -> BQ Event handler.
+# Note: Recommended to only edit the configuration marked as TODO
+# TODO:Set GOOGLE_APPLICATION_CREDENTIALS environment variable
+# OR set the credentialsFile property gg.eventhandler.gcs.credentialsFile
+
+gg.target=bq
+gg.eventhandler.bq.projectId=hmh-datalake-prod-c5b4
+
+## The GCS Event handler
+#TODO: Edit the GCS bucket name
+gg.eventhandler.gcs.bucketMappingTemplate=hmh-us-c5b4-datalake-us-prod
+## Added as per ORACLE RECOMMENDATION for the hang
+##gg.eventhandler.gcs.concurrency=1
+#TODO: Edit the GCS credentialsFile
+#gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-cfacd398eb20.json
+gg.eventhandler.gcs.credentialsFile=/data/gg01/clprdbq/etc/conf/ogg/hmh-security-prod-1c5f075d263f.json
+
+## The BQ Event handler
+## No mandatory configuration required.
+
+#TODO: Edit to include the GCS Java SDK and BQ Java SDK.
+gg.classpath=/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/gcs_2.15.0/*:/path/to/bq-deps/clarity:/apps/oracle/product/ogg21.3.0/opt/DependencyDownloader/dependencies/bigquery_2.18.2/*
+#TODO: Edit to provide sufficient memory (at least 8GB).
+##jvm.bootoptions=-Xmx200g -Xms75g
+jvm.bootoptions=-Xmx150g -Xms75g
+#TODO: If running OGGBD behind a proxy server.
+#jvm.bootoptions=-Xmx8g -Xms8g -Dhttps.proxyHost=<ip-address> -Dhttps.proxyPort=<port>
+#gg.eventhandler.bq.createDataset=true
+#gg.handler.bq.format.metaColumnsTemplate=${tk_optype[OPTYPE]},${tk_commit_ts[COMMITTIMESTAMP]}
+#gg.handler.bq.format.metaColumnsTemplate=${objectname[table]},${optype[TK_OPTYPE]},${COMMITTIMESTAMP[tk_commit_ts]},${position[pos]}
+gg.eventhandler.bq.createTable=true
+gg.eventhandler.bq.mapLargeNumbersAsStrings=false
+##gg.initialLoad=true
+gg.log=log4j
+gg.log.level=INFO
+
+gg.eventhandler.bq.retries=3
+gg.eventhandler.bq.totalTimeout=120000
+
+##gg.handler.bq.fileRollInterval=1m   --Commented on 18_sep_2025
+
+## Default configuration change from 30 seconds
+##gg.aggregate.operations.flush.interval=180000
+##gg.aggregate.operations.flush.bytes=8388608 # 8 MB
+##gg.aggregate.operations.flush.operations=2000
+## lrucache is default with 10000000 SO ADDED extra ZERO
+gg.aggregate.operations.lrucache.limit=100000000
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
